@@ -94,6 +94,7 @@ public class gameClientTest{
 		System.out.println("");
 
 		System.out.println("You have chosen to create a "+characterClass+ " named "+characterName);
+		System.out.println("");
 
 
 		//==============================
@@ -136,29 +137,36 @@ public class gameClientTest{
 		if( characterClass.equals("Spider")){
 			typeCondition = true;
 		}
+		if( characterClass.equals("mini Boss")){
+			typeCondition = true;
+		}
 
-		System.out.println("The type condition is "+typeCondition);
 
+		mob heroG = new mob("Admin", "Hunter", 999, true);
 		mob hero1 = new mob(characterName, characterClass, hp, typeCondition);
 		hero1.getHp();
 		
 
 		//================================
-		//RANDOM TEST 
+		//ENTITY DECLARATION  
 		//================================
 
 		int[] weaponArray = new int[2];
-		mob[] zombieArray = hero1.spawnZombie(3);
-		hero1.getMobHp(zombieArray);
+		mob[] zombieObjArray = hero1.spawnZombie(1);
 
-		System.out.println("CLASS = "+characterClass+" Right before next call");
+		mob[] miniBossObjArray = heroG.spawnMiniBoss(2);
+		mob[] bossObjArray = heroG.spawnBoss(3);
+
+		
 
 		int dmgDone;
+
+
 		
 		//////////////////////////////
 		// fighting loop 
 		//////////////////////////////
-
+/*
 		for(int k=0;k<3;k++){
 			while(zombieArray[k].getHp()>0){
 				System.out.println("Choose which weapon you wish to use by typing 0 for main or 1 for secondary");
@@ -169,70 +177,46 @@ public class gameClientTest{
 				hero1.getMobHp(zombieArray);
 			}
 		}
+*/
 
+
+		
 		/////////////////////////////
 		// traversing the map
 		/////////////////////////////   1= free space, 2 = chest,3 = b0ss 4= mini b0ss, 5 = current position, 0 = cant go on.
 		int [][] map = {
-			{0,0,0,0,0,0,0,0,0,1,0,2,1,3},
-			{4,1,1,1,0,0,0,0,2,1,1,0,1,0},
-			{0,2,0,2,0,0,0,0,1,1,1,1,1,0},
-			{0,1,1,1,1,5,1,1,1,1,1,2,0,0},
-			{0,0,0,0,0,1,0,0,1,1,1,0,0,0},
-			{0,0,0,2,0,1,0,4,1,2,1,0,0,0},
-			{0,0,0,1,1,1,1,1,0,1,0,0,0,0},
-			{0,0,0,1,2,1,0,3,0,0,0,0,0,0},
-			{0,0,0,1,1,2,0,0,0,0,0,0,0,0}
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,1,1,1,1,0,2,1,3,0},
+			{0,4,1,1,1,2,0,2,0,1,1,1,0,1,0,0},
+			{0,0,2,0,1,0,0,0,0,1,1,1,1,1,0,0},
+			{0,0,0,1,1,1,5,1,1,1,1,1,2,0,0,0},
+			{0,0,0,0,0,0,1,0,0,1,1,1,0,0,0,0},
+			{0,0,0,0,0,0,1,0,4,1,2,0,0,0,0,0},
+			{0,0,0,3,1,1,1,1,1,0,3,0,0,0,0,0},
+			{0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0},
+			{0,0,2,1,1,1,2,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 		};
 
 		int [][] checkMap = {
-			{0,0,0,0,0,0,0,0,0,1,0,2,1,3},
-			{4,1,1,1,0,0,0,0,2,1,1,0,1,0},
-			{0,2,0,2,0,0,0,0,1,1,1,1,1,0},
-			{0,1,1,1,1,5,1,1,1,1,1,2,0,0},
-			{0,0,0,0,0,1,0,0,1,1,1,0,0,0},
-			{0,0,0,2,0,1,0,4,1,2,1,0,0,0},
-			{0,0,0,1,1,1,1,1,0,1,0,0,0,0},
-			{0,0,0,1,2,1,0,3,0,0,0,0,0,0},
-			{0,0,0,1,1,2,0,0,0,0,0,0,0,0}
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,1,1,1,1,0,2,1,3,0},
+			{0,4,1,1,1,2,0,2,0,1,1,1,0,1,0,0},
+			{0,0,2,0,1,0,0,0,0,1,1,1,1,1,0,0},
+			{0,0,0,1,1,1,5,1,1,1,1,1,2,0,0,0},
+			{0,0,0,0,0,0,1,0,0,1,1,1,0,0,0,0},
+			{0,0,0,0,0,0,1,0,4,1,2,0,0,0,0,0},
+			{0,0,0,3,1,1,1,1,1,0,3,0,0,0,0,0},
+			{0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0},
+			{0,0,2,1,1,1,2,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 		};
-		
-
-		int xLoc = hero1.findCurrentX(map);
-		int yLoc = hero1.findCurrentY(map);
-
-		
-		
-		hero1.moveCurrentLocation(map, checkMap, 1);
-		xLoc = hero1.findCurrentX(map);
-		yLoc = hero1.findCurrentY(map);
-		
-		
-
-		hero1.atTile(map, checkMap);
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
-
-
-
-
-
-
-		
+		System.out.println(checkMap[4][11]);
+		heroG.printMap(checkMap);
+		heroG.atTile(map, checkMap, miniBossObjArray,bossObjArray,zombieObjArray);
 	}
 }
+
+
+		
+

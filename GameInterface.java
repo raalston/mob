@@ -36,7 +36,7 @@ public interface GameInterface{
 
 	public String getName();
 
-	public void getMobHp(mob[] mob);
+	public void getMobHp(mob[] mob, int mobNumber);
 
 	public void mobIncreaseHp(mob[] mob, int mobNumber,double inc);
 
@@ -48,9 +48,9 @@ public interface GameInterface{
 
 	public void freeCurrentLocation(int[][] map, int tileType);
 
-	public void moveCurrentLocation(int[][] map, int[][] checkMap, int direction);
+	public void moveCurrentLocation(int[][] map, int[][] checkMap, int direction, mob[] miniBossObjArray, mob[] bossObjArray,mob[] zombieObjArray, String[] bossNameArray);
 
-	public void atTile(int[][] map, int[][] checkMap);
+	public void atTile(int[][] map, int[][] checkMap, mob[] miniBossObjArray, mob[] bossObjArray, mob[] zombieObjArray);
 
 	public void atChest();
 }
